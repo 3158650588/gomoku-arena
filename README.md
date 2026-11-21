@@ -16,6 +16,15 @@
 
 ## 快速开始
 
+大文件（Rapfi WASM 引擎与网络权重，合计约 41 MB）不随仓库分发，克隆后先下载：
+
+```bash
+node scripts/download-rapfi.mjs           # 浏览器版引擎（js/wasm/data，含 SHA-256 校验）
+node scripts/download-rapfi.mjs --native  # 可选：Windows/Linux 原生引擎（约 80 MB）
+```
+
+然后常规安装运行：
+
 ```bash
 npm install
 npm run dev        # 开发服务器 http://localhost:3000
@@ -50,9 +59,10 @@ index.html / src/main.tsx / src/App.tsx   React 入口外壳
 src/pages/                                大厅、设置等页面
 src/game/                                 游戏逻辑（引擎循环、状态机、输入、音效、存档）
 src/game/gomoku/                          五子棋规则、AI 调度、开局库、战术、擂台、训练
-public/rapfi/                             浏览器版 Rapfi WASM + 网络权重
+public/rapfi/                             浏览器版 Rapfi WASM + 网络权重（大文件由脚本下载）
 third-party/rapfi/                        Rapfi 源码、构建脚本与 Windows 原生引擎
-scripts/                                  验证与基准脚本
+tests/                                    单元与战术测试
+scripts/                                  验证、基准与资源下载脚本
 ```
 
 ## 许可与合规
@@ -60,6 +70,7 @@ scripts/                                  验证与基准脚本
 - 本仓库游戏代码以 **GPL-3.0** 发布（因链接并分发 GPL-3.0 的 Rapfi 引擎，整体需采用兼容许可）。
 - `public/rapfi/` 与 `third-party/rapfi/` 下的 Rapfi 引擎及源码 © Rapfi 作者，许可见各目录内的 `LICENSE.txt` / `Copying.txt`（GPL-3.0）。
 - Rapfi 网络权重（`*.data`、`*.bin`、`*.lz4`）以 CC0 1.0 发布，见 `NETWORKS-LICENSE.txt`。
+- 上述大文件不进 Git：由 `scripts/download-rapfi.mjs` 从固定版本（rapfi-wasm v0.1.0 / Rapfi 250615）拉取并校验 SHA-256，版本与校验值见 `third-party/rapfi/README.md`。
 
 ## 致谢
 
